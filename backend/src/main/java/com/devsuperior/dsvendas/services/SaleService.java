@@ -2,6 +2,8 @@ package com.devsuperior.dsvendas.services;
 
 import com.devsuperior.dsvendas.domain.entities.Sale;
 import com.devsuperior.dsvendas.dto.SaleDTO;
+import com.devsuperior.dsvendas.dto.SaleSuccessDTO;
+import com.devsuperior.dsvendas.dto.SaleSumDTO;
 import com.devsuperior.dsvendas.repositories.SaleRepository;
 import com.devsuperior.dsvendas.repositories.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -28,6 +32,13 @@ public class SaleService {
      }
      //Usando o Pageable, ja fazemos uma busca paginada.
 
+    @Transactional(readOnly = true) //Isso vai garantir que toda operação com o banco seja resolvida
+    public List<SaleSumDTO> amountGroupedBySeller() {
+        return saleRepository.amountGroupedBySeller();
+    }
 
-
+    @Transactional(readOnly = true) //Isso vai garantir que toda operação com o banco seja resolvida
+    public List<SaleSuccessDTO> successGroupedBySeller() {
+        return saleRepository.successtGroupedBySeller();
+    }
 }

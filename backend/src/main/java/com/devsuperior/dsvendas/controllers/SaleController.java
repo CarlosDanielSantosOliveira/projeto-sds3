@@ -1,6 +1,8 @@
 package com.devsuperior.dsvendas.controllers;
 
 import com.devsuperior.dsvendas.dto.SaleDTO;
+import com.devsuperior.dsvendas.dto.SaleSuccessDTO;
+import com.devsuperior.dsvendas.dto.SaleSumDTO;
 import com.devsuperior.dsvendas.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,18 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<Page<SaleDTO>> findAll(Pageable pageable) { //ResponseEntity é a resposta do HTTP. Elemento de resposta para a chamada de determinado serviço.
         Page<SaleDTO> list = saleService.findAll(pageable);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/amount-by-seller")
+    public ResponseEntity<List<SaleSumDTO>> amountGroupedBySeller() { //ResponseEntity é a resposta do HTTP. Elemento de resposta para a chamada de determinado serviço.
+        List<SaleSumDTO> list = saleService.amountGroupedBySeller();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/success-by-seller")
+    public ResponseEntity<List<SaleSuccessDTO>> successGroupedBySeller() { //ResponseEntity é a resposta do HTTP. Elemento de resposta para a chamada de determinado serviço.
+        List<SaleSuccessDTO> list = saleService.successGroupedBySeller();
         return ResponseEntity.ok(list);
     }
 }
